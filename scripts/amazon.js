@@ -1,4 +1,7 @@
 //we are getting the product array from the products.js file which is loaded before this script file. this file is loaded after the product.js file, which is necessary because we need products array created first before looping in it.
+
+
+import {cart} from '../data/cart.js';
 //step 2: generate the html:
 let productsHTML='';
 products.forEach((product)=>{
