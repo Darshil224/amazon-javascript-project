@@ -82,7 +82,17 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
         }
 
 
-        console.log(cart);
+        //making the cart image icon interactive (at the top right) (updating the cart-quantity)
+        let cartQuantity=0;
+        cart.forEach((item)=>{
+            cartQuantity+=item.quantity;
+        });
+        
+        // console.log(cartQuantity);
+        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity; //now updating the cart-quantity on the webpage using the DOM.
+
+
+        // console.log(cart);
         
     });
 });
