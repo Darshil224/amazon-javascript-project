@@ -1,7 +1,7 @@
 //we are getting the product array from the products.js file which is loaded before this script file. this file is loaded after the product.js file, which is necessary because we need products array created first before looping in it.
 
 
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 //step 2: generate the html:
 let productsHTML='';
@@ -59,43 +59,29 @@ products.forEach((product)=>{
 // console.log(productsHTML);
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-
-
 //step 3: make it interactive: 
 //(here making add to cart button interactive)
+
+function updateCartQuantity(){
+    //making the cart image icon interactive (at the top right) (updating the cart-quantity)
+        let cartQuantity=0;
+        cart.forEach((cartItem)=>{
+            cartQuantity+=cartItem.quantity;
+        });
+        
+        // console.log(cartQuantity);
+        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity; //now updating the cart-quantity on the webpage using the DOM.
+}
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
         // alert('added to cart');
         //console.log(button.dataset);
         //console.log(button.dataset.productName);
         const productId = button.dataset.productId;
-        
-        let matchingItem; //undefined
-        cart.forEach((item)=>{ //loop to find out if the product already exist in the cart array?
-            if(item.productId===productId){
-                matchingItem=item;  //storing the product's object in the variable.
-            }
-        });
-        if(matchingItem){
-            matchingItem.quantity+=1; // if the product is already in the cart, then just increase the quantity instead of addding the full product object again.
-        }else{
-            cart.push({ //adding the product's object in the cart array if it is not inside the cart already.
-            productId: productId,
-            quantity: 1
-        });
-        }
-
-
+         addToCart(productId);
+    
         //making the cart image icon interactive (at the top right) (updating the cart-quantity)
-        let cartQuantity=0;
-        cart.forEach((item)=>{
-            cartQuantity+=item.quantity;
-        });
-        
-        // console.log(cartQuantity);
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity; //now updating the cart-quantity on the webpage using the DOM.
-
-
+        updateCartQuantity();
         // console.log(cart);
         
     });
