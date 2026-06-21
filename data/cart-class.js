@@ -1,21 +1,21 @@
 class Cart{
         cartItems= undefined;
-        localStorageKey=undefined;
+        #localStorageKey=undefined;
 
 
         constructor(localStorageKey){
 
 
-            this.localStorageKey=localStorageKey;
+            this.#localStorageKey=localStorageKey;
 
-            this.loadFromStorage();
+            this.#loadFromStorage();
 
 
         }
 
 
-        loadFromStorage() {
-      this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+        #loadFromStorage() {
+      this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
       if (!this.cartItems) {
         this.cartItems = [{
@@ -31,7 +31,7 @@ class Cart{
     };
 
      saveToStorage() {
-      localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+      localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     };
 
 
@@ -106,6 +106,9 @@ class Cart{
 //the parameters here are passed to constructor method inside the class
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
+
+// cart.#localStorageKey='aaa'; will give error Uncaught SyntaxError: Private field '#localStorageKey' must be declared in an enclosing class (at cart-class.js:110:5)
+
 
 
 
