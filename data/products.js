@@ -33,8 +33,52 @@ class Product{
   getPrice(){
     return `$${formatCurrency(this.priceCents)}`;
   }
+  extraInfoHTML(){
+    return '';
+  }
 }
 
+//inheritance
+class Clothing extends Product{
+  sizeChartLink;
+
+  constructor(productDetails){
+    
+    super(productDetails); //calls the parent class's (here Product class's) constructor... we are passing "productDetails" parameter to constructor of parent class.
+
+    this.sizeChartLink = productDetails.sizeChartLink;
+
+  }
+
+  extraInfoHTML(){
+    // super.extraInfoHTML(); //this will run the extraInfoHTML() method of the parent class, that is beign overidden.
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">
+    Size Chart
+    </a>
+    `;
+  }
+
+}
+//doing manually
+// const tshirt = new Clothing({
+//     id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+//     image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+//     name: "Adults Plain Cotton T-Shirt - 2 Pack",
+//     rating: {
+//       stars: 4.5,
+//       count: 56
+//     },
+//     priceCents: 799,
+//     keywords: [
+//       "tshirts",
+//       "apparel",
+//       "mens"
+//     ],
+//     type: "clothing",
+//     sizeChartLink: "images/clothing-size-chart.png"
+//   });
+//   console.log(tshirt);
 
 // converting an object into a class manually:-
 // const product1= new Product({
@@ -715,7 +759,11 @@ export const products = [
     ]
   }
 ].map((productDetails)=>{
-  return new Product(productDetails);
-});
+  if(productDetails.type==='clothing'){
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails); // Runs only for non-clothing products because clothing products
+// already returned above and exited the function.
+});  //products array will contain object of Product class and also objects of Clothing class
 
 // console.log(products);

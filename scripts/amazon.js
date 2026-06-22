@@ -45,6 +45,11 @@ products.forEach((product)=>{
                 </select>
             </div>
 
+            ${product.extraInfoHTML()}  <!--//polymorphism  // The products array contains objects of different classes
+                                        // (Product and Clothing). Later, methods like extraInfoHTML()
+                                        // will automatically use the correct version based on the
+                                        // actual object's class (polymorphism). -->
+
             <div class="product-spacer"></div>
 
             <div class="added-to-cart">
