@@ -98,6 +98,37 @@ class Clothing extends Product{
 //   });
 // console.log(product1);
 
+
+/* Date Class built in class
+const date=new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+*/
+
+/*
+const object2={
+  a:2,
+  b:this.a //will give error, as "this"=undefined at this point of time, bcz , until this point, object2 is not created yet. hence we cannot use "this" directly inside a object, yes we can use "this" inside a method which is inside a object.
+};
+*/
+
+/* //MORE ABOUT "this"
+function logThis() {
+  console.log(this);
+}
+logThis();
+logThis.call('hello');
+
+this
+const object3 = {
+  method: () => {
+    console.log(this);
+  }
+};
+object3.method();
+*/
+
+
 //here we are using .map() method to convert each object into a class. :-
 export const products = [
   {
