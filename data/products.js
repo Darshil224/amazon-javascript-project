@@ -129,6 +129,48 @@ object3.method();
 */
 
 
+
+//using backend to load the products instead of using a file in our computer to load the products.
+export let products=[];
+export function loadProducts(fun){
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', ()=>{
+    products=JSON.parse(xhr.response).map((productDetails)=>{
+          if(productDetails.type==='clothing'){
+            return new Clothing(productDetails);
+          }
+          return new Product(productDetails); // Runs only for non-clothing products because clothing products
+          // already returned above and exited the function.
+        });  //products array will contain object of Product class and also objects of Clothing class
+
+
+
+        // console.log(products);
+        // console.log('load products');
+
+        fun();
+    
+  });
+
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
 //here we are using .map() method to convert each object into a class. :-
 export const products = [
   {
@@ -798,3 +840,4 @@ export const products = [
 });  //products array will contain object of Product class and also objects of Clothing class
 
 // console.log(products);
+*/
