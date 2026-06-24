@@ -1,7 +1,7 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 
 import { loadCart } from "../data/cart.js";
 
@@ -120,12 +120,7 @@ new Promise((resolve)=>{
 //TO do this , we need to use a feature:- Promise.all()  :-
 
 Promise.all([
-    new Promise((resolve)=>{
-        loadProducts(()=>{
-        resolve();
-        });
-
-    }),
+    loadProductsFetch(),
     new Promise((resolve)=>{
         loadCart(()=>{
         resolve();
