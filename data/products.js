@@ -147,7 +147,7 @@ export function loadProducts(fun){
 
 
         // console.log(products);
-        // console.log('load products');
+        console.log('load products');
 
         fun();
     
