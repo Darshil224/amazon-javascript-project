@@ -8,6 +8,49 @@ import { loadCart } from "../data/cart.js";
 // import '../data/cart-class.js';
 // import '../data/backend-practice.js';
 
+/*
+//async=makes a function return a promise . eg:-
+async function loadPage(){
+    console.log('load page');
+}
+loadPage().then(()=>{
+    console.log('next step');
+})
+
+*/
+
+
+/*
+//await=lets us wait for a promise to finish beforre going to the next line
+//We can only use await when we are inside an async function. eg:-
+
+async function loadPage(){
+    console.log('load page');
+    await loadProductsFetch();  //btw loadProductsFetch() already returns a promise. Hence awaits make sure this profise finish , before going to next line
+    return 'value2';
+}
+loadPage().then((value)=>{
+    console.log('next step');
+    console.log(value);
+})
+*/
+
+//now lets use async-await in out project code.... this following code will work same as the previously used Promise.all() code at the bottom:-
+async function loadPage(){
+    await loadProductsFetch();  //btw loadProductsFetch() already returns a promise. Hence awaits make sure this profise finish , before going to next line
+    await new Promise((resolve)=>{
+        loadCart(()=>{
+            resolve();
+        });
+    });
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+loadPage();
+
+
+
+
 
 /*
 //using just a callback
@@ -115,6 +158,8 @@ new Promise((resolve)=>{
 
 */
 
+
+/*
 //2) We can run multiple promises at the same time:- eg:- instead of waiting for products to load then wait for cart to load, we can actually load the products and the cart at the same time. 
 
 //TO do this , we need to use a feature:- Promise.all()  :-
@@ -134,7 +179,7 @@ Promise.all([
 //this works same as we did the code above,  below comment (using promise in our project).
 
 //also we can save values inside the resolve functions of promises and the will be stored inside the array parameter inside the .then() function.
-
+*/
 
 
 
