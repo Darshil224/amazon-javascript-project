@@ -35,6 +35,8 @@ loadPage().then((value)=>{
 })
 */
 
+
+/*
 //now lets use async-await in out project code.... this following code will work same as the previously used Promise.all() code at the bottom:-
 async function loadPage(){
     await loadProductsFetch();  //btw loadProductsFetch() already returns a promise. Hence awaits make sure this profise finish , before going to next line
@@ -48,7 +50,31 @@ async function loadPage(){
 }
 loadPage();
 
+*/
 
+
+//same code as above, but with error handling
+//now lets use async-await in out project code.... this following code will work same as the previously used Promise.all() code at the bottom:-
+async function loadPage(){
+    try{ //error handling for async await
+
+        //throw 'error1'; //manually creating an error.
+        await loadProductsFetch();  //btw loadProductsFetch() already returns a promise. Hence awaits make sure this profise finish , before going to next line
+        await new Promise((resolve, reject)=>{
+            // throw 'error2'; //manually creating an error inside promise, Synchronously
+            loadCart(()=>{
+                // reject('error3'); //manually creating an error inside promise, Asynchronously
+                resolve();
+            });
+        });
+    }catch(error){
+        console.log('Unexpected Error. Pleae try again later.');
+    }
+    
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+loadPage();
 
 
 
